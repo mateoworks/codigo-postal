@@ -11,8 +11,8 @@ class Municipality extends Model
     use HasFactory, ApiTrait;
 
     protected $allowIncluded = ['suburbs', 'state'];
-    protected $allowFilter = ['description'];
-    protected $allowSort = ['description'];
+    protected $allowFilter = ['name'];
+    protected $allowSort = ['name'];
 
     public function suburbs()
     {

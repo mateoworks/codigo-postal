@@ -11,8 +11,8 @@ class State extends Model
     use HasFactory, ApiTrait;
 
     protected $allowIncluded = ['municipalities'];
-    protected $allowFilter = ['description'];
-    protected $allowSort = ['description'];
+    protected $allowFilter = ['name'];
+    protected $allowSort = ['name'];
 
     public function municipalities()
     {

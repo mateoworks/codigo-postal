@@ -16,7 +16,7 @@ class SettlementResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'tipo' => $this->description,
+            'tipo' => $this->name,
         ];
     }
 }

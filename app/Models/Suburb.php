@@ -11,8 +11,8 @@ class Suburb extends Model
     use HasFactory, ApiTrait;
 
     protected $allowIncluded = ['settlement', 'city', 'municipality'];
-    protected $allowFilter = ['description', 'cp'];
-    protected $allowSort = ['description', 'cp'];
+    protected $allowFilter = ['name', 'cp'];
+    protected $allowSort = ['name', 'cp'];
 
     public function settlement()
     {

@@ -1,0 +1,254 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API estados de la republica mexicana",
+        "description": "Lista de estados de la republica mexicana",
+        "version": "1.0"
+    },
+    "servers": [
+        {
+            "url": "http://codigo-postal.test/api"
+        }
+    ],
+    "paths": {
+        "/estados": {
+            "get": {
+                "tags": [
+                    "estados"
+                ],
+                "summary": "Listado de todo los estados de la republica mexicana",
+                "operationId": "fca88423ab0b4f1738d8168bedc23f39",
+                "parameters": [
+                    {
+                        "name": "filter[name]",
+                        "in": "query",
+                        "description": "Buscar por nombre del estado",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Ordenar por 'name', '-name'",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "perPage",
+                        "in": "query",
+                        "description": "Cantidad de registros por consulta",
+                        "required": false,
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Si esta activada la paginación, indica a que página desea ir",
+                        "required": false,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "nombre": {
+                                                        "type": "string",
+                                                        "example": "Oaxaca"
+                                                    },
+                                                    "abrev": {
+                                                        "type": "string",
+                                                        "example": "Oax."
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/estados/{id}": {
+            "get": {
+                "tags": [
+                    "estados"
+                ],
+                "summary": "Obtener datos de un estado por el id",
+                "operationId": "a683ea62f61e3510d5605234f5e07609",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Obtener un estado por id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "number",
+                                                    "example": 21
+                                                },
+                                                "nombre": {
+                                                    "type": "string",
+                                                    "example": "Puebla"
+                                                },
+                                                "abrev": {
+                                                    "type": "string",
+                                                    "example": "Pue."
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "NOT FOUND",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Recurso State no encontrado, puede que el id no exista en la base de datos"
+                                        },
+                                        "code": {
+                                            "type": "number",
+                                            "example": 404
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/estados/{id}/municipios": {
+            "get": {
+                "tags": [
+                    "estados"
+                ],
+                "summary": "Obtener los municipios de un estado",
+                "operationId": "bf8f722c9b657bb6d25006bbbc8a8c94",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Obtener la lista de municipios por estado",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "number",
+                                                    "example": 1
+                                                },
+                                                "nombre": {
+                                                    "type": "string",
+                                                    "example": "Aguascalientes"
+                                                },
+                                                "abrev": {
+                                                    "type": "string",
+                                                    "example": "Ags."
+                                                },
+                                                "municipios": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "number",
+                                                                "example": "43"
+                                                            },
+                                                            "nombre": {
+                                                                "type": "string",
+                                                                "example": "Aguascalientes"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "NOT FOUND",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Recurso State no encontrado, puede que el id no exista en la base de datos"
+                                        },
+                                        "code": {
+                                            "type": "number",
+                                            "example": "404"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

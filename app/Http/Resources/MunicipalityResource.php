@@ -16,7 +16,7 @@ class MunicipalityResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'nombre' => $this->description,
+            'nombre' => $this->name,
             'estado' => StateResource::make($this->whenLoaded('state')),
             'asentamientos' => SuburbResource::collection($this->whenLoaded('suburbs')),
         ];

@@ -16,7 +16,7 @@ class StateResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'nombre' => $this->description,
+            'nombre' => $this->name,
             'abrev' => $this->code,
             'municipios' => MunicipalityResource::collection($this->whenLoaded('municipalities')),
         ];

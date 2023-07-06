@@ -2,7 +2,9 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Response;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -26,5 +28,20 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+
+    public function render($request, Throwable $exception)
+    {
+        if ($exception instanceof ModelNotFoundException && $request->expectsJson()) {
+            $model = class_basename($exception->getModel()); // Obtener el nombre del modelo
+            $id = $exception->getIds(); // Obtener el ID buscado
+
+            return response()->json([
+                'error' => 'Recurso ' . $model . ' no encontrado, puede que el id no exista en la base de datos',
+                'code' => 404,
+            ], Response::HTTP_NOT_FOUND);
+        }
+
+        return parent::render($request, $exception);
     }
 }
