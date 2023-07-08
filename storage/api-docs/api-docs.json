@@ -1,8 +1,8 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "API estados de la republica mexicana",
-        "description": "Lista de estados de la republica mexicana",
+        "title": "API para consulta de codigos postales",
+        "description": "Busca de codigos postales, información de estados, municipios y sus asentamientos",
         "version": "1.0"
     },
     "servers": [
@@ -11,6 +11,271 @@
         }
     ],
     "paths": {
+        "/municipios": {
+            "get": {
+                "tags": [
+                    "municipios"
+                ],
+                "summary": "Listado de todo los municipios de la republica mexicana",
+                "operationId": "5ae14fdfd7846d0ba0620a83fdcc0de9",
+                "parameters": [
+                    {
+                        "name": "filter[name]",
+                        "in": "query",
+                        "description": "Buscar por nombre del municipio",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Ordenar por 'name', '-name'",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "perPage",
+                        "in": "query",
+                        "description": "Cantidad de registros por consulta",
+                        "required": false,
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Si esta activada la paginación, indica a que página desea ir",
+                        "required": false,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "nombre": {
+                                                        "type": "string",
+                                                        "example": "Abalá"
+                                                    },
+                                                    "estado": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "number",
+                                                                "example": "1"
+                                                            },
+                                                            "nombre": {
+                                                                "type": "string",
+                                                                "example": "Yucatán"
+                                                            },
+                                                            "abrev": {
+                                                                "type": "string",
+                                                                "example": "Yuc."
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/municipios/{id}": {
+            "get": {
+                "tags": [
+                    "municipios"
+                ],
+                "summary": "Obtener datos de un municipio por el id",
+                "operationId": "2f8541683e73439eb92fd3109ac5af0c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Obtener un municipio por id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "number",
+                                                    "example": 21
+                                                },
+                                                "nombre": {
+                                                    "type": "string",
+                                                    "example": "Abalá"
+                                                },
+                                                "estado": {
+                                                    "properties": {
+                                                        "id": {
+                                                            "type": "number",
+                                                            "example": "1"
+                                                        },
+                                                        "nombre": {
+                                                            "type": "string",
+                                                            "example": "Yucatán"
+                                                        },
+                                                        "abrev": {
+                                                            "type": "string",
+                                                            "example": "Yuc."
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "NOT FOUND",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Recurso Municipality no encontrado, puede que el id no exista en la base de datos"
+                                        },
+                                        "code": {
+                                            "type": "number",
+                                            "example": 404
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/municipios/{id}/asentamientos": {
+            "get": {
+                "tags": [
+                    "municipios"
+                ],
+                "summary": "Obtener los asentamientos de un municipio",
+                "operationId": "1987c8841920c97b7cdfad8f7c76ee76",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Obtener la lista de asentamientos por municipio",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "number",
+                                                    "example": 1
+                                                },
+                                                "nombre": {
+                                                    "type": "string",
+                                                    "example": "Abalá"
+                                                },
+                                                "asentamientos": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "number",
+                                                                "example": "1"
+                                                            },
+                                                            "cp": {
+                                                                "type": "number",
+                                                                "example": 97825
+                                                            },
+                                                            "nombre": {
+                                                                "type": "string",
+                                                                "example": "Mukuiche"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "NOT FOUND",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Recurso Municipality no encontrado, puede que el id no exista en la base de datos"
+                                        },
+                                        "code": {
+                                            "type": "number",
+                                            "example": "404"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/estados": {
             "get": {
                 "tags": [
@@ -236,6 +501,403 @@
                                         "message": {
                                             "type": "string",
                                             "example": "Recurso State no encontrado, puede que el id no exista en la base de datos"
+                                        },
+                                        "code": {
+                                            "type": "number",
+                                            "example": "404"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/asentamientos": {
+            "get": {
+                "tags": [
+                    "asentamientos"
+                ],
+                "summary": "Listado de todos los asentamientos, con paginación 15 por página",
+                "operationId": "129781c92fd8ceda6f25d8e31f373437",
+                "parameters": [
+                    {
+                        "name": "filter[name]",
+                        "in": "query",
+                        "description": "Buscar por nombre del asentamiento",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Ordenar por 'name', '-name'",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "perPage",
+                        "in": "query",
+                        "description": "Cantidad de registros por consulta",
+                        "required": false,
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Si esta activada la paginación, indica a que página desea ir",
+                        "required": false,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "cp": {
+                                                        "type": "number",
+                                                        "example": 97825
+                                                    },
+                                                    "nombre": {
+                                                        "type": "string",
+                                                        "example": "Mukuiche"
+                                                    },
+                                                    "tipo_asentamiento": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "number",
+                                                                "example": "1"
+                                                            },
+                                                            "tipo": {
+                                                                "type": "string",
+                                                                "example": "Pueblo"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "ciudad": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "number",
+                                                                "example": "null"
+                                                            },
+                                                            "nombre": {
+                                                                "type": "string",
+                                                                "example": "null"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "municipio": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "number",
+                                                                "example": "1"
+                                                            },
+                                                            "nombre": {
+                                                                "type": "string",
+                                                                "example": "Abalá"
+                                                            },
+                                                            "estado": {
+                                                                "properties": {
+                                                                    "id": {
+                                                                        "type": "number",
+                                                                        "example": "1"
+                                                                    },
+                                                                    "nombre": {
+                                                                        "type": "string",
+                                                                        "example": "Yucatán"
+                                                                    },
+                                                                    "abrev": {
+                                                                        "type": "string",
+                                                                        "example": "Yuc."
+                                                                    }
+                                                                },
+                                                                "type": "object"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/asentamientos/{id}": {
+            "get": {
+                "tags": [
+                    "asentamientos"
+                ],
+                "summary": "Obtener datos de un asentamiento por el id",
+                "operationId": "06512656860114171eb043be5fb4bee3",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Obtener un asentamiento por id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "cp": {
+                                                        "type": "number",
+                                                        "example": 97825
+                                                    },
+                                                    "nombre": {
+                                                        "type": "string",
+                                                        "example": "Mukuiche"
+                                                    },
+                                                    "tipo_asentamiento": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "number",
+                                                                "example": "1"
+                                                            },
+                                                            "tipo": {
+                                                                "type": "string",
+                                                                "example": "Pueblo"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "ciudad": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "number",
+                                                                "example": "null"
+                                                            },
+                                                            "nombre": {
+                                                                "type": "string",
+                                                                "example": "null"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "municipio": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "number",
+                                                                "example": "1"
+                                                            },
+                                                            "nombre": {
+                                                                "type": "string",
+                                                                "example": "Abalá"
+                                                            },
+                                                            "estado": {
+                                                                "properties": {
+                                                                    "id": {
+                                                                        "type": "number",
+                                                                        "example": "1"
+                                                                    },
+                                                                    "nombre": {
+                                                                        "type": "string",
+                                                                        "example": "Yucatán"
+                                                                    },
+                                                                    "abrev": {
+                                                                        "type": "string",
+                                                                        "example": "Yuc."
+                                                                    }
+                                                                },
+                                                                "type": "object"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "NOT FOUND",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Recurso Suburb no encontrado, puede que el id no exista en la base de datos"
+                                        },
+                                        "code": {
+                                            "type": "number",
+                                            "example": "404"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/cp/{cp}": {
+            "get": {
+                "tags": [
+                    "cp"
+                ],
+                "summary": "Obtener asentamientos por codigo postal",
+                "operationId": "dea6839a2591b25c535dabbc67b79d3b",
+                "parameters": [
+                    {
+                        "name": "cp",
+                        "in": "path",
+                        "description": "Codigo postal para buscar",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "cp": {
+                                                        "type": "number",
+                                                        "example": 97825
+                                                    },
+                                                    "nombre": {
+                                                        "type": "string",
+                                                        "example": "Mukuiche"
+                                                    },
+                                                    "tipo_asentamiento": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "number",
+                                                                "example": "1"
+                                                            },
+                                                            "tipo": {
+                                                                "type": "string",
+                                                                "example": "Pueblo"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "ciudad": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "number",
+                                                                "example": "null"
+                                                            },
+                                                            "nombre": {
+                                                                "type": "string",
+                                                                "example": "null"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "municipio": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "number",
+                                                                "example": "1"
+                                                            },
+                                                            "nombre": {
+                                                                "type": "string",
+                                                                "example": "Abalá"
+                                                            },
+                                                            "estado": {
+                                                                "properties": {
+                                                                    "id": {
+                                                                        "type": "number",
+                                                                        "example": "1"
+                                                                    },
+                                                                    "nombre": {
+                                                                        "type": "string",
+                                                                        "example": "Yucatán"
+                                                                    },
+                                                                    "abrev": {
+                                                                        "type": "string",
+                                                                        "example": "Yuc."
+                                                                    }
+                                                                },
+                                                                "type": "object"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "NOT FOUND",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Recurso Suburb no encontrado, puede que el id no exista en la base de datos"
                                         },
                                         "code": {
                                             "type": "number",

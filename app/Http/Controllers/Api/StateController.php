@@ -9,9 +9,9 @@ use Illuminate\Http\Request;
 
 /**
  * @OA\Info(
- *  title="API estados de la republica mexicana", 
+ *  title="API para consulta de codigos postales", 
  *  version="1.0",
- *  description="Lista de estados de la republica mexicana"
+ *  description="Busca de codigos postales, información de estados, municipios y sus asentamientos"
  * )
  *
  * @OA\Server(url="http://codigo-postal.test/api")
