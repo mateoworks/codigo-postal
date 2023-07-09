@@ -6,19 +6,44 @@ El archivo de la base de datos esta en la raíz de este directorio y se llama BD
 
 ## Endpoints agregados
 
-`/estados`
-Lista de estados de México
+```
+/estados
+/estados/{id}
+/estados/{id}/municipios
 
-```json
-{
-    "data": [
-        {
-            "id": 1,
-            "nombre": "Oaxaca",
-            "abrev": "Oax."
-        }
-    ]
-}
+/municipios
+/municipios/{id}
+/municipios/{id}/asentamientos
+
+/asentamientos
+/asentamientos/{id}
+
+/cp/{cp}
+
 ```
 
-## Istalación
+## Instalación del proyecto
+
+Para realizar la instalación sería como la de cualquier otro proyecto de laravel.
+Configurar al archivo .env de acuerdo a su servidor.
+
+```
+git clone https://github.com/mateoworks/codigo-postal.git
+composer install
+copy .env.example .env
+```
+
+Importar la base de datos de MYSQL en su gestor de su preferencia y configurar en .env
+
+```
+DB_HOST=localhost
+DB_DATABASE=tu_base_de_datos
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+Crear una nueva API key
+
+```
+php artisan key:generate
+```
