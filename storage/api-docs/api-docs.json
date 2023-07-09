@@ -7,7 +7,7 @@
     },
     "servers": [
         {
-            "url": "http://codigo-postal.test/api"
+            "url": "http://my-default-host.com"
         }
     ],
     "paths": {

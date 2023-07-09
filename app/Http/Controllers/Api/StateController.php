@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
  *  description="Busca de codigos postales, información de estados, municipios y sus asentamientos"
  * )
  *
- * @OA\Server(url="http://codigo-postal.test/api")
+ * @OA\Server(url=L5_SWAGGER_CONST_HOST)
  */
 class StateController extends Controller
 {
